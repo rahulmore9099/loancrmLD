@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -8,8 +9,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =========================
 
 SECRET_KEY = 'django-insecure-change-this-key'
+
 DEBUG = True
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['*']   # Render / production friendly
 
 
 # =========================
@@ -46,8 +49,11 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
 
+    # Static serve (Render)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
 
@@ -70,9 +76,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
         'DIRS': [BASE_DIR / "templates"],
-
         'APP_DIRS': True,
 
         'OPTIONS': {
@@ -90,21 +94,36 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # =========================
-# DATABASE — SQL SERVER LOCALDB
+# DATABASE — SQLITE (CURRENT)
 # =========================
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'FinalLoanCRMDB',
-        'HOST': r'(localdb)\MSSQLLocalDB',
-        'Trusted_Connection': 'yes',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
+
+# =========================
+# FUTURE SQL SERVER CONFIG (COMMENTED)
+# =========================
+"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'mssql',
+        'NAME': 'LiveLoanDB',
+        'USER': 'userLoanDB',
+        'PASSWORD': 'Rahulmore@123',
+        'HOST': '77.245.76.122',
+        'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 17 for SQL Server',
+            'extra_params': 'TrustServerCertificate=yes;',
         },
     }
 }
+"""
 
 
 # =========================
@@ -150,6 +169,8 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # =========================
