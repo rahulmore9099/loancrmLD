@@ -10,9 +10,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-change-this-key'
 
-DEBUG = True
+DEBUG = True   # Production me False karna later
 
-ALLOWED_HOSTS = ['*']   # Render / production friendly
+ALLOWED_HOSTS = ["*"]
+
+
+# ✅ Railway CSRF Fix
+CSRF_TRUSTED_ORIGINS = [
+    "https://loancrm-production.up.railway.app"
+]
+
+# ✅ Railway HTTPS Fix
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # =========================
@@ -49,8 +58,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
-    # Static serve (Render)
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -94,7 +101,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # =========================
-# DATABASE — SQLITE (CURRENT)
+# DATABASE — SQLITE
 # =========================
 
 DATABASES = {
@@ -103,27 +110,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# =========================
-# FUTURE SQL SERVER CONFIG (COMMENTED)
-# =========================
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'LiveLoanDB',
-        'USER': 'userLoanDB',
-        'PASSWORD': 'Rahulmore@123',
-        'HOST': '77.245.76.122',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
-            'extra_params': 'TrustServerCertificate=yes;',
-        },
-    }
-}
-"""
 
 
 # =========================
