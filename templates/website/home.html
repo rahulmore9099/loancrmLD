@@ -2,7 +2,9 @@
 <html>
 <head>
 
-    <title>Loan Company</title>
+    <title>Loan Darshak</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -12,91 +14,200 @@
 
 
 <!-- NAVBAR -->
+<nav class="bg-white shadow sticky top-0 z-50">
 
-<div class="bg-white shadow p-4 flex justify-between">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
 
-    <h1 class="font-bold text-xl text-indigo-600">
-        Loan Company
-    </h1>
+        <h1 class="font-bold text-xl text-indigo-600">
+            Loan Darshak
+        </h1>
 
-    <div class="space-x-6">
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center space-x-6">
 
-        <a href="/" class="hover:text-indigo-600">Home</a>
-        <a href="/about/" class="hover:text-indigo-600">About</a>
-        <a href="/services/" class="hover:text-indigo-600">Services</a>
-        <a href="/contact/" class="hover:text-indigo-600">Contact</a>
+            <a href="/" class="hover:text-indigo-600">Home</a>
+            <a href="/about/" class="hover:text-indigo-600">About</a>
+            <a href="/services/" class="hover:text-indigo-600">Services</a>
+            <a href="/contact/" class="hover:text-indigo-600">Contact</a>
+
+            <a href="/login/"
+               class="bg-indigo-600 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-700">
+                Login
+            </a>
+
+        </div>
+
+        <!-- Mobile Button -->
+        <button onclick="toggleMenu()" class="md:hidden text-2xl">
+            ☰
+        </button>
+
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden px-4 pb-4 space-y-3">
+
+        <a href="/" class="block">Home</a>
+        <a href="/about/" class="block">About</a>
+        <a href="/services/" class="block">Services</a>
+        <a href="/contact/" class="block">Contact</a>
 
         <a href="/login/"
-           class="bg-indigo-600 text-white px-4 py-2 rounded-lg">
+           class="block bg-indigo-600 text-white px-4 py-2 rounded-lg text-center">
             Login
         </a>
 
     </div>
 
-</div>
+</nav>
 
 
 
-<!-- HERO -->
-
-<div class="max-w-6xl mx-auto py-16 grid md:grid-cols-2 gap-10">
+<!-- HERO SECTION -->
+<section class="max-w-7xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
 
     <div>
 
-        <h1 class="text-4xl font-bold mb-4">
-            Fast & Easy Loan Approval
+        <h1 class="text-3xl md:text-5xl font-bold mb-6 leading-tight">
+            Fast & Easy Loan Approval with Trusted Experts
         </h1>
 
-        <p class="text-gray-600 mb-6">
-            Personal Loan, Business Loan & Insurance services with
-            fastest processing.
+        <p class="text-gray-600 mb-6 text-lg">
+            Personal Loan, Business Loan, Home Loan & Insurance services with
+            minimum documentation and fastest approval process.
         </p>
 
-        <a href="/contact/"
-           class="bg-indigo-600 text-white px-6 py-3 rounded-xl">
-            Apply Now
-        </a>
+        <div class="flex gap-4 flex-wrap">
+
+            <a href="/contact/"
+               class="bg-indigo-600 text-white px-6 py-3 rounded-xl shadow hover:bg-indigo-700">
+                Apply Now
+            </a>
+
+            <a href="/services/"
+               class="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-xl hover:bg-indigo-50">
+                View Services
+            </a>
+
+        </div>
 
     </div>
 
     <div>
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-             class="w-72 mx-auto">
+             class="w-64 md:w-80 mx-auto">
     </div>
 
-</div>
+</section>
+
+
+
+<!-- TRUST STATS -->
+<section class="bg-indigo-600 text-white py-10">
+
+    <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+        <div>
+            <h2 class="text-3xl font-bold">500+</h2>
+            <p>Loans Approved</p>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-bold">50+</h2>
+            <p>Bank Partners</p>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-bold">10+</h2>
+            <p>Years Experience</p>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-bold">24x7</h2>
+            <p>Customer Support</p>
+        </div>
+
+    </div>
+
+</section>
 
 
 
 <!-- SERVICES -->
+<section class="py-16">
 
-<div class="bg-white py-12">
-
-    <h2 class="text-center text-2xl font-bold mb-10">
-        Our Services
+    <h2 class="text-center text-3xl font-bold mb-12">
+        Our Loan Services
     </h2>
 
-    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-4">
 
-        <div class="p-6 shadow rounded-xl text-center">
+        <div class="bg-white p-6 shadow rounded-xl hover:shadow-lg transition text-center">
+            <div class="text-4xl mb-3">💳</div>
             <h3 class="font-bold text-lg mb-2">Personal Loan</h3>
-            <p>Quick salary based loan approval</p>
+            <p class="text-gray-600">Quick salary based loan approval</p>
         </div>
 
-        <div class="p-6 shadow rounded-xl text-center">
+        <div class="bg-white p-6 shadow rounded-xl hover:shadow-lg transition text-center">
+            <div class="text-4xl mb-3">🏢</div>
             <h3 class="font-bold text-lg mb-2">Business Loan</h3>
-            <p>Funding for your business growth</p>
+            <p class="text-gray-600">Funding for your business growth</p>
         </div>
 
-        <div class="p-6 shadow rounded-xl text-center">
+        <div class="bg-white p-6 shadow rounded-xl hover:shadow-lg transition text-center">
+            <div class="text-4xl mb-3">🛡️</div>
             <h3 class="font-bold text-lg mb-2">Insurance</h3>
-            <p>Health & life insurance services</p>
+            <p class="text-gray-600">Health & life insurance services</p>
         </div>
 
     </div>
 
-</div>
+</section>
 
+
+
+<!-- CTA -->
+<section class="bg-indigo-600 text-white text-center py-14">
+
+    <h2 class="text-3xl font-bold mb-4">
+        Need Loan Assistance? We Are Ready to Help You
+    </h2>
+
+    <p class="mb-6">
+        Talk to our loan experts today and get the best deal.
+    </p>
+
+    <a href="/contact/"
+       class="bg-white text-indigo-600 px-6 py-3 rounded-xl font-semibold shadow">
+        Apply Now
+    </a>
+
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="bg-gray-900 text-white py-8">
+
+    <div class="max-w-6xl mx-auto text-center">
+
+        <h2 class="font-bold text-lg mb-2">Loan Darshak</h2>
+
+        <p class="text-gray-400 text-sm">
+            © 2026 All Rights Reserved
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+function toggleMenu() {
+    document.getElementById("mobileMenu").classList.toggle("hidden");
+}
+</script>
 
 
 </body>

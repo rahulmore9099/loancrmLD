@@ -34,4 +34,5 @@ urlpatterns = [
     path('status/add/<int:pk>/', views.add_status, name='add_status'),
 path('status/history/<int:pk>/', views.status_history, name='status_history'),
 
+
 ]

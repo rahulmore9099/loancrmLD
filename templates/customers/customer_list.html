@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div class="max-w-7xl mx-auto">
-
+<!-- <div class="max-w-7xl mx-auto"> -->
+<div class="max-w-7xl mx-auto h-full flex flex-col">
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
 
@@ -20,8 +20,8 @@
 
 
     <!-- Table Card -->
-    <div class="table-card">
-
+    <!-- <div class="table-card"> -->
+<div class="table-card ">
         <!-- Scroll Wrapper -->
         <div class="table-scroll">
 
@@ -200,6 +200,68 @@
 
 }
 
+
+/* ================= MOBILE RESPONSIVE IMPROVEMENTS ================= */
+
+
+
+/* Sticky header */
+.table-scroll thead th{
+    position: sticky;
+    top: 0;
+    background: #f1f5f9;
+    z-index: 5;
+}
+
+
+/* Mobile font + spacing */
+
+@media (max-width:768px){
+
+    .table-scroll{
+        max-height:60vh;
+    }
+
+    table{
+        font-size:12px;
+    }
+
+    .table-head th,
+    .table-row td{
+        padding:10px 8px;
+        white-space:nowrap;
+    }
+
+    /* Buttons responsive */
+
+    .action-btn{
+        padding:6px 8px;
+        font-size:12px;
+    }
+
+    .status-btn{
+        padding:6px 10px;
+        font-size:12px;
+    }
+
+    /* Header responsive */
+
+    h1{
+        font-size:20px;
+    }
+
+    .btn-primary{
+        padding:8px 12px;
+        font-size:13px;
+    }
+
+}
+
+.table-scroll{
+    -webkit-overflow-scrolling: touch;
+}
 </style>
+
+
 
 {% endblock %}
