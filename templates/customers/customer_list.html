@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+
+        <div>
+            <h1 class="text-2xl font-bold text-gray-800">Customers</h1>
+            <p class="text-gray-500 text-sm">Manage all loan customers</p>
+        </div>
+
+        <a href="{% url 'add_customer' %}"
+           class="btn-primary">
+            + Add Customer
+        </a>
+
+    </div>
+
+
+    <!-- Table Card -->
+    <div class="table-card">
+
+        <!-- Scroll Wrapper -->
+        <div class="table-scroll">
+
+            <table class="w-full text-sm text-left">
+
+                <thead>
+                    <tr class="table-head">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Loan Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for c in customers %}
+
+                    <tr class="table-row">
+
+                        <td>{{ c.id }}</td>
+
+                        <td class="font-semibold">
+                            {{ c.name }}
+                        </td>
+
+                        <td>{{ c.contact_no }}</td>
+
+                        <td>
+                            {% if c.loan_type == "PL" %}
+                                <span class="badge badge-blue">Personal</span>
+                            {% else %}
+                                <span class="badge badge-green">Business</span>
+                            {% endif %}
+                        </td>
+
+                        <td>₹ {{ c.required_amount }}</td>
+
+                        <td>
+                            <span class="badge badge-yellow">New</span>
+                        </td>
+
+                        <td>
+
+                            <div class="flex gap-2">
+
+                                <a href="{% url 'customer_detail' c.id %}"
+                                   class="action-btn view">👁</a>
+
+                                <a href="{% url 'edit_customer' c.id %}"
+                                   class="action-btn edit">✏</a>
+
+                                <a href="{% url 'delete_customer' c.id %}"
+                                   class="action-btn delete">🗑</a>
+
+                                <a href="{% url 'add_status' c.id %}"
+                                   class="status-btn">
+                                    + Update Status
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+/* ================= TABLE CARD ================= */
+
+.table-card{
+    background:white;
+    border-radius:20px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.12);
+    overflow:hidden;
+}
+
+/* Scroll only table */
+.table-scroll{
+    overflow-x:auto;
+}
+
+/* ================= TABLE ================= */
+
+.table-head{
+    background:#f1f5f9;
+    color:#374151;
+    font-weight:600;
+}
+
+.table-head th{
+    padding:14px;
+}
+
+.table-row td{
+    padding:14px;
+    border-top:1px solid #f1f5f9;
+}
+
+.table-row:hover{
+    background:#f9fafb;
+}
+
+
+/* ================= BADGES ================= */
+
+.badge{
+    padding:4px 10px;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-blue{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.badge-green{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.badge-yellow{
+    background:#fef9c3;
+    color:#a16207;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.action-btn{
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:13px;
+}
+
+.view{ background:#dbeafe; }
+.edit{ background:#fef3c7; }
+.delete{ background:#fee2e2; }
+
+.status-btn{
+    background:linear-gradient(135deg,#4f46e5,#6366f1);
+    color:white;
+    padding:8px 14px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:600;
+}
+
+
+/* ================= MOBILE FIX ================= */
+
+@media (max-width:768px){
+
+    .table-card{
+        border-radius:14px;
+    }
+
+}
+
+</style>
+
+{% endblock %}

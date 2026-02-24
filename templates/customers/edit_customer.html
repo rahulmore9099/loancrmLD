@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto mt-10">
+
+    <div class="bg-white rounded-3xl shadow-xl p-8">
+
+        <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+            ✏ Edit Customer
+        </h2>
+
+        <form method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% csrf_token %}
+
+            <div>
+                <label class="form-label">Full Name</label>
+                <input type="text" name="name" value="{{ customer.name }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">Address</label>
+                <input type="text" name="address" value="{{ customer.address }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">Contact</label>
+                <input type="text" name="contact" value="{{ customer.contact_no }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">WhatsApp</label>
+                <input type="text" name="whatsapp" value="{{ customer.whatsapp_no }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">Email</label>
+                <input type="email" name="email" value="{{ customer.email }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">Required Amount</label>
+                <input type="number" name="amount" value="{{ customer.required_amount }}" class="form-input">
+            </div>
+
+            <div>
+                <label class="form-label">CIBIL Score</label>
+                <input type="number" name="cibil" value="{{ customer.cibil_score }}" class="form-input">
+            </div>
+
+            <div class="md:col-span-2 flex justify-end pt-4">
+
+                <button class="px-6 py-3 rounded-xl 
+                               bg-gradient-to-r from-indigo-600 to-indigo-700 
+                               text-white font-semibold shadow-lg 
+                               hover:scale-105 transition">
+                    ✅ Update Customer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

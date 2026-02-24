@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- Title -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-2">
+            <i data-lucide="layout-dashboard" class="w-8 h-8 text-indigo-600"></i>
+            Loan CRM Dashboard
+        </h1>
+        <p class="text-gray-500">
+            Welcome back, Admin 👋
+        </p>
+    </div>
+
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Customers -->
+        <div class="card bg-blue">
+            <div>
+                <p>Total Customers</p>
+                <h2>{{ total_customers }}</h2>
+            </div>
+            <i data-lucide="users"></i>
+        </div>
+
+        <!-- Personal Loans -->
+        <div class="card bg-green">
+            <div>
+                <p>Personal Loans</p>
+                <h2>{{ pl_count }}</h2>
+            </div>
+            <i data-lucide="briefcase"></i>
+        </div>
+
+        <!-- Pending -->
+        <div class="card bg-orange">
+            <div>
+                <p>Pending Files</p>
+                <h2>{{ pending_count }}</h2>
+            </div>
+            <i data-lucide="clock"></i>
+        </div>
+
+        <!-- Disbursed -->
+        <div class="card bg-purple">
+            <div>
+                <p>Disbursed</p>
+                <h2>{{ disbursement_count }}</h2>
+            </div>
+            <i data-lucide="wallet"></i>
+        </div>
+
+    </div>
+
+
+
+    <!-- STATUS ROW -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-8">
+
+        <div class="status-box">Login <span>{{ login_count }}</span></div>
+        <div class="status-box">Process <span>{{ process_count }}</span></div>
+        <div class="status-box">Sanction <span>{{ sanction_count }}</span></div>
+        <div class="status-box">Reject <span>{{ reject_count }}</span></div>
+        <div class="status-box">Disbursement <span>{{ disbursement_count }}</span></div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+.card{
+    color:white;
+    padding:22px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 20px rgba(0,0,0,0.12);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h2{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.card i{
+    width:36px;
+    height:36px;
+    opacity:0.9;
+}
+
+.bg-blue{
+    background:linear-gradient(45deg,#3b82f6,#2563eb);
+}
+
+.bg-green{
+    background:linear-gradient(45deg,#22c55e,#16a34a);
+}
+
+.bg-orange{
+    background:linear-gradient(45deg,#f97316,#ea580c);
+}
+
+.bg-purple{
+    background:linear-gradient(45deg,#8b5cf6,#d946ef);
+}
+
+
+
+.status-box{
+    background:white;
+    padding:16px;
+    border-radius:14px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+}
+
+.status-box span{
+    color:#4f46e5;
+    font-size:18px;
+}
+
+</style>
+
+
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+lucide.createIcons();
+</script>
+
+{% endblock %}

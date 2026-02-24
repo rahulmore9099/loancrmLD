@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-5xl mx-auto mt-10 space-y-6">
+
+    <!-- HEADER -->
+    <div class="flex justify-between items-center">
+
+        <h1 class="text-2xl font-semibold flex items-center gap-2">
+            <i data-lucide="bar-chart-3" class="w-6 h-6 text-indigo-600"></i>
+            Loan Status Workflow
+        </h1>
+
+        <a href="{% url 'customer_detail' customer.id %}"
+           class="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300 text-sm">
+            ← Back
+        </a>
+
+    </div>
+
+
+    <!-- TABS -->
+    <div class="flex gap-2 flex-wrap">
+
+        <button type="button" class="tab-btn active" data-step="login">Login</button>
+        <button type="button" class="tab-btn" data-step="process">Process</button>
+        <button type="button" class="tab-btn" data-step="query">Query</button>
+        <button type="button" class="tab-btn" data-step="sanction">Sanction</button>
+        <button type="button" class="tab-btn" data-step="reject">Reject</button>
+        <button type="button" class="tab-btn" data-step="disbursement">Disbursement</button>
+
+    </div>
+
+
+    <!-- CARD -->
+    <div class="bg-white p-6 rounded-xl shadow">
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="step" id="stepInput" value="login">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <!-- BANK -->
+                <div id="bankDiv">
+                    <label class="text-sm text-gray-600">Bank Name</label>
+                    <input type="text"
+                           name="bank_name"
+                           id="bankInput"
+                           class="input">
+                </div>
+
+                <!-- DATE -->
+                <div>
+                    <label class="text-sm text-gray-600">Date</label>
+                    <input type="date"
+                           name="date"
+                           id="dateInput"
+                           class="input"
+                           required>
+                </div>
+
+                <!-- REMARK -->
+                <div class="md:col-span-2">
+                    <label class="text-sm text-gray-600">Remark</label>
+                    <textarea name="remark"
+                              id="remarkInput"
+                              class="input"
+                              required></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit"
+                    class="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg flex items-center gap-2">
+
+                <i data-lucide="save" class="w-4 h-4"></i>
+                Save Status
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- STATUS DATA FROM DJANGO -->
+<script>
+
+const statusData = {
+
+    login: {
+        bank: "{{ status.bank_name|default:'' }}",
+        date: "{{ status.login_date|date:'Y-m-d' }}",
+        remark: "{{ status.login_remark|default:'' }}"
+    },
+
+    process: {
+        date: "{{ status.process_date|date:'Y-m-d' }}",
+        remark: "{{ status.process_remark|default:'' }}"
+    },
+
+    query: {
+        date: "{{ status.query_date|date:'Y-m-d' }}",
+        remark: "{{ status.query_remark|default:'' }}"
+    },
+
+    sanction: {
+        date: "{{ status.sanction_date|date:'Y-m-d' }}",
+        remark: "{{ status.sanction_remark|default:'' }}"
+    },
+
+    reject: {
+        date: "{{ status.reject_date|date:'Y-m-d' }}",
+        remark: "{{ status.reject_remark|default:'' }}"
+    },
+
+    disbursement: {
+        date: "{{ status.disbursement_date|date:'Y-m-d' }}",
+        remark: "{{ status.disbursement_remark|default:'' }}"
+    }
+
+};
+
+</script>
+
+
+
+<!-- STYLE -->
+<style>
+
+.tab-btn{
+padding:8px 18px;
+border-radius:8px;
+background:#e5e7eb;
+cursor:pointer;
+font-size:14px;
+}
+
+.tab-btn.active{
+background:#4f46e5;
+color:white;
+}
+
+.input{
+width:100%;
+border:1px solid #d1d5db;
+padding:10px;
+border-radius:6px;
+font-size:14px;
+}
+
+</style>
+
+
+
+<!-- SCRIPT -->
+<script>
+
+const stepInput = document.getElementById("stepInput");
+const bankDiv = document.getElementById("bankDiv");
+
+const bankInput = document.getElementById("bankInput");
+const dateInput = document.getElementById("dateInput");
+const remarkInput = document.getElementById("remarkInput");
+
+
+function loadData(step){
+
+    let data = statusData[step] || {};
+
+    if(step === "login"){
+        bankDiv.style.display = "block";
+        bankInput.value = data.bank || "";
+    }else{
+        bankDiv.style.display = "none";
+        bankInput.value = "";
+    }
+
+    dateInput.value = data.date || "";
+    remarkInput.value = data.remark || "";
+}
+
+
+document.querySelectorAll(".tab-btn").forEach(btn=>{
+
+    btn.addEventListener("click",function(){
+
+        let step = this.dataset.step;
+
+        stepInput.value = step;
+
+        document.querySelectorAll(".tab-btn")
+        .forEach(b=>b.classList.remove("active"));
+
+        this.classList.add("active");
+
+        loadData(step);
+
+    });
+
+});
+
+
+// default load
+loadData("login");
+
+</script>
+
+
+<!-- ICON -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+lucide.createIcons();
+</script>
+
+{% endblock %}

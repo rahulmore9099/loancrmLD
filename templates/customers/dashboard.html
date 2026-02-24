@@ -1,0 +1,404 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-7xl mx-auto">
+
+    <!-- Title -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-800">
+            Loan CRM Dashboard
+        </h1>
+        <p class="text-gray-500">
+            Welcome back, Admin 👋
+        </p>
+    </div>
+
+
+    <!-- ================= TOP CARDS ================= -->
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div class="card bg-blue">
+            <div>
+                <p>Total Customers</p>
+                <h2>{{ total_customers }}</h2>
+            </div>
+        </div>
+
+        <div class="card bg-green">
+            <div>
+                <p>Personal Loans</p>
+                <h2>{{ pl_count }}</h2>
+            </div>
+        </div>
+
+        <div class="card bg-purple">
+            <div>
+                <p>Business Loans</p>
+                <h2>{{ bl_count }}</h2>
+            </div>
+        </div>
+
+        <div class="card bg-orange">
+            <div>
+                <p>Pending Files</p>
+                <h2>{{ pending_count }}</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= STATUS SECTION ================= -->
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 mt-8">
+
+        <div class="status-card border-blue">
+            <p>Login</p>
+            <h3>{{ login_count }}</h3>
+        </div>
+
+        <div class="status-card border-yellow">
+            <p>Process</p>
+            <h3>{{ process_count }}</h3>
+        </div>
+
+        <div class="status-card border-green">
+            <p>Sanctioned</p>
+            <h3>{{ sanction_count }}</h3>
+        </div>
+
+        <div class="status-card border-red">
+            <p>Reject</p>
+            <h3>{{ reject_count }}</h3>
+        </div>
+
+        <div class="status-card border-purple">
+            <p>Query</p>
+            <h3>{{ query_count }}</h3>
+        </div>
+
+        <div class="status-card border-indigo">
+            <p>Disbursement</p>
+            <h3>{{ disbursement_count }}</h3>
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= TABLES ================= -->
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10">
+
+        <!-- Personal Loans -->
+        <div class="data-card border-blue">
+            <h3>Top Personal Loans</h3>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for c in top_pl %}
+                <tr>
+                    <td>{{ c.name }}</td>
+                    <td>₹{{ c.required_amount }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">No Data</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+
+        <!-- Business Loans -->
+        <div class="data-card border-purple">
+            <h3>Top Business Loans</h3>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                </tr>
+
+                {% for c in top_bl %}
+                <tr>
+                    <td>{{ c.name }}</td>
+                    <td>₹{{ c.required_amount }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">No Data</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+
+
+
+        <!-- Recent Files -->
+        <div class="data-card border-green">
+            <h3>Recent Files</h3>
+
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Loan</th>
+                </tr>
+
+                {% for c in recent_files %}
+                <tr>
+                    <td>{{ c.name }}</td>
+                    <td>{{ c.loan_type }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="2">No Data</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- <div class="ai-assistant-btn">
+    <a href="{% url 'ai_assistant' %}" class="btn btn-primary">
+        🤖 AI Assistant
+    </a>
+</div> -->
+
+<!-- ================= CSS ================= -->
+
+<style>
+
+.card{
+    color:white;
+    padding:22px;
+    border-radius:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 10px 20px rgba(0,0,0,0.12);
+    transition:0.3s;
+}
+.card:hover{ transform:translateY(-5px); }
+
+.card h2{
+    font-size:28px;
+    font-weight:bold;
+}
+
+.bg-blue{ background:linear-gradient(45deg,#3b82f6,#2563eb); }
+.bg-green{ background:linear-gradient(45deg,#22c55e,#16a34a); }
+.bg-orange{ background:linear-gradient(45deg,#f97316,#ea580c); }
+.bg-purple{ background:linear-gradient(45deg,#8b5cf6,#d946ef); }
+
+
+
+/* STATUS */
+
+.status-card{
+    background:white;
+    border-radius:14px;
+    padding:14px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    border-left:5px solid;
+    transition:0.3s;
+}
+
+.status-card:hover{
+    transform:translateY(-3px);
+}
+
+.status-card p{
+    font-size:13px;
+    color:#6b7280;
+}
+
+.status-card h3{
+    font-size:20px;
+    font-weight:700;
+    margin-top:4px;
+}
+
+.border-blue{ border-color:#3b82f6; }
+.border-yellow{ border-color:#f59e0b; }
+.border-green{ border-color:#22c55e; }
+.border-red{ border-color:#ef4444; }
+.border-purple{ border-color:#8b5cf6; }
+.border-indigo{ border-color:#6366f1; }
+
+
+
+/* TABLE CARDS */
+
+.data-card{
+    background:white;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 6px 14px rgba(0,0,0,0.08);
+    border-left:6px solid;
+}
+
+.data-card h3{
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    padding:9px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+th{
+    text-align:left;
+    color:#6b7280;
+}
+
+</style>
+
+
+<!-- ================= AI ASSISTANT FLOAT ================= -->
+
+
+<!-- ================= AI FLOAT BUTTON ================= -->
+
+<div id="aiButton" onclick="toggleAI()">
+    🤖
+</div>
+
+
+<!-- ================= CHAT PANEL ================= -->
+
+<div id="aiChat">
+
+    <div class="ai-header">
+        Loan AI Assistant
+        <span onclick="toggleAI()">✖</span>
+    </div>
+
+    <div class="ai-body">
+        <iframe src="https://rahul00726-loan-darshak007.hf.space"></iframe>
+    </div>
+
+</div>
+
+
+
+<style>
+
+/* Floating Button */
+
+#aiButton{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#6366f1,#9333ea);
+    color:white;
+    font-size:28px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    z-index:99999;
+}
+
+
+/* Chat Box */
+
+#aiChat{
+    position:fixed;
+    bottom:95px;
+    right:20px;
+    width:420px;
+    height:600px;
+    background:white;
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+    z-index:99999;
+}
+
+
+/* Header */
+
+.ai-header{
+    background:linear-gradient(135deg,#6366f1,#9333ea);
+    color:white;
+    padding:14px 16px;
+    font-weight:600;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+
+/* Body */
+
+.ai-body{
+    flex:1;
+    height:100%;
+}
+
+
+/* Iframe Fix */
+
+.ai-body iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width:768px){
+
+    #aiChat{
+        width:95%;
+        height:80%;
+        right:10px;
+        bottom:80px;
+    }
+
+}
+
+</style>
+
+
+
+<script>
+
+function toggleAI(){
+    let chat = document.getElementById("aiChat");
+
+    if(chat.style.display === "flex"){
+        chat.style.display = "none";
+    }else{
+        chat.style.display = "flex";
+    }
+}
+
+</script>
+
+
+
+
+
+{% endblock %}

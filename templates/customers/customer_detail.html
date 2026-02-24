@@ -1,0 +1,251 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="max-w-6xl mx-auto mt-10 space-y-8">
+
+<!-- ================= HEADER ================= -->
+<div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
+
+    <div>
+        <h1 class="text-3xl font-bold text-gray-800 flex items-center gap-3">
+            👤 Customer Details
+        </h1>
+        <p class="text-gray-500">
+            Complete customer profile & loan information
+        </p>
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+
+        <a href="{% url 'add_status' customer.id %}"
+           class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600
+                  text-white font-semibold shadow hover:scale-105 transition">
+            ➕ Update Status
+        </a>
+
+        <a href="{% url 'edit_customer' customer.id %}"
+           class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-yellow-400 to-yellow-500
+                  text-white font-semibold shadow hover:scale-105 transition">
+            ✏ Edit
+        </a>
+
+        <a href="{% url 'delete_customer' customer.id %}"
+           class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-500 to-red-600
+                  text-white font-semibold shadow hover:scale-105 transition"
+           onclick="return confirm('Delete this customer?')">
+            🗑 Delete
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ================= CURRENT STATUS ================= -->
+{% if status %}
+<div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-5 shadow-sm">
+
+    <div class="flex justify-between items-center flex-wrap gap-4">
+
+        <div>
+            <p class="text-sm text-gray-500">
+                Current Loan Status
+            </p>
+
+            <p class="text-xl font-bold text-indigo-700">
+                {{ current_stage }}
+            </p>
+
+            <p class="text-sm text-gray-600">
+                Bank: {{ status.bank_name }}
+            </p>
+        </div>
+
+    </div>
+
+</div>
+{% endif %}
+
+
+
+<!-- ================= MAIN CARD ================= -->
+<div class="bg-white rounded-3xl shadow-xl p-8 space-y-10">
+
+    <!-- BASIC INFO -->
+    <div>
+
+        <h2 class="text-lg font-semibold text-gray-700 mb-6 border-b pb-2">
+            📌 Customer Information
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <div>
+                <p class="text-gray-500 text-sm">Full Name</p>
+                <p class="font-semibold text-xl text-gray-800">
+                    {{ customer.name }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Phone</p>
+                <p class="font-semibold text-lg">
+                    {{ customer.contact_no }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Email</p>
+                <p class="font-semibold">
+                    {{ customer.email }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Loan Type</p>
+                <p class="font-semibold">
+                    {{ customer.loan_type }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Required Amount</p>
+                <p class="font-bold text-green-600 text-lg">
+                    ₹ {{ customer.required_amount }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">CIBIL Score</p>
+                <p class="font-semibold">
+                    {{ customer.cibil_score }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PERSONAL LOAN -->
+    {% if pl %}
+    <div>
+
+        <h2 class="text-lg font-semibold text-blue-600 mb-6 border-b pb-2">
+            💼 Personal Loan Details
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+                <p class="text-gray-500 text-sm">Salary</p>
+                <p class="font-semibold">{{ pl.salary_amount }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Company</p>
+                <p class="font-semibold">{{ pl.company_name }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">PF Available</p>
+                <p class="font-semibold">{{ pl.is_pf }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">ITR Available</p>
+                <p class="font-semibold">{{ pl.is_itr }}</p>
+            </div>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+
+    <!-- BUSINESS LOAN -->
+    {% if bl %}
+    <div>
+
+        <h2 class="text-lg font-semibold text-green-600 mb-6 border-b pb-2">
+            🏢 Business Loan Details
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div>
+                <p class="text-gray-500 text-sm">Business Name</p>
+                <p class="font-semibold">{{ bl.business_name }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Establish Year</p>
+                <p class="font-semibold">{{ bl.establish_year }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Business Type</p>
+                <p class="font-semibold">{{ bl.business_type }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">ITR Available</p>
+                <p class="font-semibold">{{ bl.is_itr }}</p>
+            </div>
+
+            <div>
+                <p class="text-gray-500 text-sm">Office Space</p>
+                <p class="font-semibold">{{ bl.office_space }}</p>
+            </div>
+
+        </div>
+
+    </div>
+    {% endif %}
+
+
+    <!-- ================= TIMELINE ================= -->
+    {% if status %}
+    <div>
+
+        <h2 class="text-lg font-semibold text-purple-600 mb-6 border-b pb-2">
+            📈 Loan Timeline
+        </h2>
+
+        <ul class="space-y-2 text-sm">
+
+            {% if status.is_login %}
+            <li>✅ Login — {{ status.login_date }}</li>
+            {% endif %}
+
+            {% if status.is_process %}
+            <li>✅ Process — {{ status.process_date }}</li>
+            {% endif %}
+
+            {% if status.is_query %}
+            <li>🟡 Query — {{ status.query_date }}</li>
+            {% endif %}
+
+            {% if status.is_sanction %}
+            <li>✅ Sanction — {{ status.sanction_date }}</li>
+            {% endif %}
+
+            {% if status.is_reject %}
+            <li>❌ Rejected — {{ status.reject_date }}</li>
+            {% endif %}
+
+            {% if status.is_disbursement %}
+            <li>💰 Disbursed — {{ status.disbursement_date }}</li>
+            {% endif %}
+
+        </ul>
+
+    </div>
+    {% endif %}
+
+
+</div>
+
+</div>
+
+{% endblock %}

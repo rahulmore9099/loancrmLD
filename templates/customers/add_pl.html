@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto">
+
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">
+            Personal Loan Details
+        </h2>
+        <p class="text-gray-500">
+            Customer: {{ customer.name }}
+        </p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow p-6">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <div>
+                    <label class="text-sm text-gray-600">Salary Amount</label>
+                    <input type="text" name="salary" class="input">
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Company Name</label>
+                    <input type="text" name="company" class="input">
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">PF Available?</label>
+                    <select name="pf" class="input">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">ITR Filled?</label>
+                    <select name="itr" class="input">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="text-sm text-gray-600">Residence Type</label>
+                    <select name="residence" class="input">
+                        <option value="Owned">Owned</option>
+                        <option value="Rented">Rented</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="mt-6 flex justify-end">
+                <button class="btn-primary">
+                    Save Customer ✅
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
